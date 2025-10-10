@@ -2,16 +2,11 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Loan } from '../loan/loan.entity';
 import { Reservation } from '../reservation/reservation.entity';
 import { BookConditionHistory } from '../book-condition-history/book-condition-history.entity';
+import { BookCondition } from './book.enums';
 
 export enum BookStatus {
   DOSTUPNA = 'dostupna',
   ZADUZENA = 'zaduzena',
-}
-
-export enum BookCondition {
-  NEOSTECENA = 'neostecena',
-  VRLO_MALO_STETE = 'vrlo_malo_stete',
-  OSTECENA = 'ostecena',
 }
 
 @Entity()
@@ -38,7 +33,7 @@ export class Book {
   @Column({
     type: 'enum',
     enum: BookCondition,
-    default: BookCondition.NEOSTECENA,
+    default: BookCondition.DOBRO,
   })
   stanje: BookCondition;
 

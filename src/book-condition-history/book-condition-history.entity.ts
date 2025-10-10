@@ -6,8 +6,9 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Book, BookCondition } from '../books/book.entity';
+import { Book } from '../books/book.entity';
 import { Librarian } from '../librarian/librariran.entity';
+import { BookCondition } from 'src/books/book.enums';
 
 @Entity()
 export class BookConditionHistory {
