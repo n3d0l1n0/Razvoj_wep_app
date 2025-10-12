@@ -1,0 +1,27 @@
+<div>
+    <h2>Korisnici</h2>
+    <a routerLink="/users/new">Dodaj novog korisnika</a>
+    <div *ngIf="loading$ | async">Učitavanje...</div>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Ime i Prezime</th>
+          <th>Email</th>
+          <th>Datum učlanjenja</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users$ | async">
+          <td>{{ user.ime }} {{ user.prezime }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.datumUclanjenja | date: 'dd.MM.yyyy' }}</td>
+          <td>
+            <button (click)="deleteUser(user.id)">Obriši</button>
+            <a [routerLink]="['/users', user.id, 'edit']" class="button-edit">Izmeni</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
