@@ -1,0 +1,40 @@
+<div class="form-container">
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <h2>{{ isEditMode ? 'Izmeni knjigu' : 'Dodaj novu knjigu' }}</h2>
+  
+      <div class="form-group">
+        <label for="naslov">Naslov</label>
+        <input id="naslov" type="text" formControlName="naslov">
+      </div>
+  
+      <div class="form-group">
+        <label for="autor">Autor</label>
+        <input id="autor" type="text" formControlName="autor">
+      </div>
+  
+      <div class="form-group">
+        <label for="isbn">ISBN (13 cifara)</label>
+        <input id="isbn" type="text" formControlName="isbn">
+      </div>
+  
+      <div class="form-group">
+        <label for="stanje">Stanje</label>
+        <select id="stanje" formControlName="stanje">
+          <option *ngFor="let condition of bookConditions" [value]="condition">
+            {{ condition }}
+          </option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status">
+          <option *ngFor="let status of bookStatuses" [value]="status">
+            {{ status }}
+          </option>
+        </select>
+      </div>
+  
+      <button type="submit" [disabled]="bookForm.invalid">Dodaj knjigu</button>
+    </form>
+  </div>

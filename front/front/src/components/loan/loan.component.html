@@ -1,0 +1,25 @@
+<div class="modal-backdrop" (click)="closeModal.emit()"></div>
+<div class="modal-content">
+  <h2>Iznajmi Novu Knjigu</h2>
+  <form [formGroup]="loanForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="book">Izaberi Knjigu</label>
+      <select id="book" formControlName="bookId">
+        <option value="" disabled>-- Izaberi knjigu --</option>
+        <option *ngFor="let book of availableBooks$ | async" [value]="book.id">
+          {{ book.naslov }} - {{ book.autor }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="returnDate">Datum Vraćanja</label>
+      <input id="returnDate" type="date" formControlName="predvidjeniDatumVracanja">
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" (click)="closeModal.emit()">Odustani</button>
+      <button type="submit" [disabled]="loanForm.invalid">Iznajmi</button>
+    </div>
+  </form>
+</div>

@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { User } from '../models/user.model';
+import { User } from '../../models/user.model';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import * as UserActions from '../store/user.actions';
+import * as UserActions from '../../store/user/user.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { selectUserById } from '../store/user.selectors';
+import { selectUserById } from '../../store/user/user.selectors';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl:'./user-form-component.html',
+  styleUrls: ['./user-form-component.css']
 })
 export class UserFormComponent implements OnInit {
   userForm!: FormGroup;

@@ -1,0 +1,171 @@
+body {
+    font-family: 'Georgia', serif;
+    color: #6d5d4b;
+    line-height: 1.6;
+    background-color: #fdfaf6;
+    margin: 0;
+    padding: 1rem;
+}
+
+div {
+    max-width: 90%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f5f5dc;
+    border: 1px solid #d2b48c;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: 'Garamond', serif;
+    color: #4a3f35;
+    border-bottom: 2px solid #d2b48c;
+    padding-bottom: 0.5rem;
+    font-size: 2.5rem;
+}
+
+a, .button-account {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #8b4513;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    border: none; 
+}
+
+.button-account {
+    margin-left: 1rem;
+}
+
+a:hover, .button-account:hover {
+    background-color:#8b4513;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 1rem; 
+}
+
+thead {
+    background-color: #d2b48c;
+    color: #4a3f35;
+}
+
+th, td {
+    padding: 1rem; 
+    text-align: left;
+    border-bottom: 1px solid #d2b48c;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #faf0e6;
+}
+.add-button {
+    margin-left: 1rem;
+}
+tbody tr:hover {
+    background-color: #eaddca;
+}
+
+button, .button-edit {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button {
+    background-color: transparent;
+    color: #8b4513;
+    border-color: #8b4513;
+}
+
+button:hover {
+    background-color: #8b4513;
+    color: #fff;
+}
+
+.button-edit {
+    background-color: transparent;
+    color: #a0846b;
+    border-color: #a0846b;
+}
+
+.button-edit:hover {
+    background-color: #a0846b;
+    color: #fff;
+}
+
+
+@media (max-width: 768px) {
+    div {
+        padding: 1.5rem;
+        max-width: 100%;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    th, td {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr { border: 1px solid #ccc; margin-bottom: 1rem; }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    td:before {
+        position: absolute;
+        top: 0.75rem;
+        left: 0.75rem;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        text-align: left; 
+    }
+
+    td:nth-of-type(1):before { content: "Zaglavlje 1"; }
+    td:nth-of-type(2):before { content: "Zaglavlje 2"; }
+    td:nth-of-type(3):before { content: "Zaglavlje 3"; }
+    td:nth-of-type(4):before { content: "Akcije"; }
+
+    td:last-child {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+}

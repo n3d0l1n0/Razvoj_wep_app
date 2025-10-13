@@ -1,0 +1,43 @@
+<form [formGroup]="librarianForm" (ngSubmit)="onSubmit()" class="user-form">
+    <h2>{{ isEditMode ? 'Izmena bibliotekara' : 'Dodavanje novog bibliotekara' }}</h2>
+  
+    <div class="form-group">
+      <label for="ime">Ime</label>
+      <input id="ime" type="text" formControlName="ime" placeholder="Unesite ime">
+    </div>
+  
+    <div class="form-group">
+      <label for="prezime">Prezime</label>
+      <input id="prezime" type="text" formControlName="prezime" placeholder="Unesite prezime">
+    </div>
+  
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="Unesite email">
+    </div>
+  
+    <div class="form-group">
+      <label for="password">Lozinka</label>
+      <input id="password" type="password" formControlName="password" placeholder="Unesite lozinku">
+    </div>
+  
+    <div class="form-group">
+      <label for="datumRodjenja">Datum rođenja</label>
+      <input id="datumRodjenja" type="date" formControlName="datumRodjenja">
+    </div>
+  
+    <hr>
+  
+    <div class="form-group">
+      <label for="nivoPristupa">Nivo pristupa</label>
+      <select id="nivoPristupa" formControlName="nivoPristupa">
+        <option *ngFor="let level of accessLevels" [value]="level">
+          {{ level }}
+        </option>
+      </select>
+    </div>
+  
+    <button type="submit" [disabled]="librarianForm.invalid">
+      {{ isEditMode ? 'Sačuvaj izmene' : 'Dodaj bibliotekara' }}
+    </button>
+  </form>

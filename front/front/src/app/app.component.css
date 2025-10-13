@@ -1,0 +1,36 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3e2723;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  nav a {
+    color: #fff;
+    margin: 0 1rem;
+    text-decoration: none;
+    font-family: 'Garamond', serif;
+    font-size: 1.3rem;
+    transition: color 0.3s ease;
+  }
+  
+  nav a:hover {
+    color: #d2b48c;
+  }
+  
+  main {
+    padding: 1.5rem;
+  }
+  
+  .button-logout {
+    background-color: #8d6e63;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Garamond', serif;
+    font-size: 1.1rem;
+  }

@@ -1,0 +1,22 @@
+<nav>
+    <div>
+      <a routerLink="/">Početna</a>
+      <ng-container *ngIf="isLoggedIn$ | async">
+        <a routerLink="/users">Korisnici</a>
+        <a routerLink="/librarians">Bibliotekari</a>
+        <a routerLink="/books">Knjige</a> 
+      </ng-container>
+    </div>
+    
+    <div>
+      <a *ngIf="!(isLoggedIn$ | async)" routerLink="/login" class="button-logout">Prijavi se</a>
+  
+      <button *ngIf="isLoggedIn$ | async" (click)="logout()" class="button-logout">
+        Odjavi se
+      </button>
+    </div>
+  </nav>
+  
+  <main>
+    <router-outlet></router-outlet>
+  </main>

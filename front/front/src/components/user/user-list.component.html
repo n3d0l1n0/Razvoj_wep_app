@@ -1,0 +1,31 @@
+<div>
+  <h2>Korisnici</h2>
+  <a routerLink="/users/new" class="btn" *ngIf="isSenior$ | async">Dodaj novog korisnika</a>
+  
+  <div *ngIf="loading$ | async">Učitavanje...</div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Ime i Prezime</th>
+        <th>Email</th>
+        <th>Datum učlanjenja</th>
+        <th *ngIf="isSenior$ | async">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users$ | async">
+        <td data-label="Ime i Prezime:">
+          <a [routerLink]="['/users', user.id]" class="user-link">{{ user.ime }} {{ user.prezime }}</a>
+        </td>
+        <td data-label="Email:">{{ user.email }}</td>
+        <td data-label="Datum učlanjenja:">{{ user.datumUclanjenja | date: 'dd.MM.yyyy' }}</td>
+        
+        <td *ngIf="isSenior$ | async" class="actions-cell">
+          <a [routerLink]="['/users', user.id, 'edit']" class="btn">Izmeni</a>       
+          <button (click)="deleteUser(user.id)" class="btn">Obriši</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
