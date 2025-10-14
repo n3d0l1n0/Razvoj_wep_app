@@ -1,8 +1,12 @@
 <div class="home-container">
-    <h1>Dobrodošli u biblioteku</h1>
-    <p>Izaberite željenu radnju:</p>
-    <div class="role-selection">
-      <a routerLink="/users" class="role-button">Upravljaj korisnicima</a>
-      <a routerLink="/librarians" class="role-button">Upravljaj bibliotekarima</a>
-    </div>
+  <h1>Dobrodošli u biblioteku</h1>
+  <p>Izaberite željenu radnju:</p>
+  <div class="role-selection" *ngIf="isLoggedIn$ | async">
+    <a routerLink="/users" class="role-button">Upravljaj korisnicima</a>
+    <a routerLink="/librarians" class="role-button">Upravljaj bibliotekarima</a>
   </div>
+  <div *ngIf="!(isLoggedIn$ | async)">
+      <p>Molimo vas da se ulogujete da biste nastavili.</p>
+      <a routerLink="/login" class="role-button">Login</a>
+  </div>
+</div>

@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { selectIsLoggedIn } from '../../store/auth/auth.selector';
 
@@ -9,9 +10,17 @@ import { selectIsLoggedIn } from '../../store/auth/auth.selector';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private store: Store, private router: Router) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   canActivate(): Observable<boolean> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return of(true);
+    }
+
     return this.store.select(selectIsLoggedIn).pipe(
       take(1),
       map(isLoggedIn => {

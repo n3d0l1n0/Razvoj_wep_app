@@ -14,10 +14,9 @@ import { AccessLevel } from '../models/librarian.model';
 
 export const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   
-  { path: 'users', component: UserListComponent },
+  { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { 
     path: 'users/new', 
     component: UserFormComponent,
@@ -79,5 +78,5 @@ export const appRoutes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [AccessLevel.ADMIN, AccessLevel.SENIOR, AccessLevel.MEDIOR] }
   },
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/home' } 
 ];
