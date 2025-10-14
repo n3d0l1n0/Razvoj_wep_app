@@ -1,23 +1,25 @@
 <div *ngIf="currentUser$ | async as user" class="account-container">
-  <h2>Moj nalog</h2>
-  
-  <div class="account-details">
-    <div class="detail-item">
-      <strong>Ime:</strong>
-      <span>{{ user.ime }}</span>
-    </div>
-    <div class="detail-item">
-      <strong>Prezime:</strong>
-      <span>{{ user.prezime }}</span>
-    </div>
-    <div class="detail-item">
-      <strong>Email:</strong>
-      <span>{{ user.email }}</span>
-    </div>
-    <div class="detail-item">
-      <strong>Nivo pristupa:</strong>
-      <span>{{ user.nivoPristupa }}</span>
-    </div>
+  <div class="account-card">
+    <h2 class="account-title">Moj nalog</h2>
+    
+    <dl class="account-details">
+      <div class="detail-item">
+        <dt>Ime:</dt>
+        <dd>{{ user.ime }}</dd>
+      </div>
+      <div class="detail-item">
+        <dt>Prezime:</dt>
+        <dd>{{ user.prezime }}</dd>
+      </div>
+      <div class="detail-item">
+        <dt>Email:</dt>
+        <dd>{{ user.email }}</dd>
+      </div>
+      <div class="detail-item">
+        <dt>Nivo pristupa:</dt>
+        <dd>{{ user.nivoPristupa }}</dd>
+      </div>
+    </dl>
   </div>
 </div>
 
