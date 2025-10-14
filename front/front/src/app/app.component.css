@@ -34,3 +34,25 @@ nav {
     font-family: 'Garamond', serif;
     font-size: 1.1rem;
   }
+
+  @media (max-width: 768px) {
+    nav {
+        flex-direction: column; 
+        padding: 1rem;        
+    }
+
+    nav > div:first-child {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    nav a {
+        margin: 0.5rem 0;
+    }
+
+    .button-logout {
+        width: 100%;
+    }
+}

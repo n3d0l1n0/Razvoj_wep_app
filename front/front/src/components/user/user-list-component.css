@@ -124,7 +124,6 @@ td.actions-cell .btn, td.actions-cell button {
     margin: 0;
 }
 
-
 @media (max-width: 768px) {
     div {
         padding: 1.5rem;
@@ -142,7 +141,7 @@ td.actions-cell .btn, td.actions-cell button {
     table, tbody, tr, td {
         display: block;
         width: 100%;
-        align-items: center;
+        box-sizing: border-box;
     }
 
     tr {
@@ -156,14 +155,10 @@ td.actions-cell .btn, td.actions-cell button {
         border: none;
         border-bottom: 1px solid #eaddca;
         position: relative;
+        padding: 0.75rem;
         padding-left: 45%;
-        padding-top: 0.75rem;
-        padding-bottom: 0.75rem;
         text-align: right;
-        min-height: 2.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+        min-height: 44px;
     }
     
     tr td:last-child {
@@ -177,26 +172,28 @@ td.actions-cell .btn, td.actions-cell button {
         left: 0;
         bottom: 0;
         width: 40%;
-        background-color: #d2b48c;
         color: #4a3f35;
         font-weight: bold;
-        white-space: normal;
         text-align: left;
         padding: 0.75rem;
         display: flex;
-        align-items: center;
+        align-items: center; 
+        box-sizing: border-box;
     }
     
     td .user-link-btn {
-        width: 100%;
+        width: auto; 
+        margin: 0;
+    }
+
+        td.actions-cell:before {
+        content: "Akcije:"; 
     }
 
     td.actions-cell {
-        padding-left: 0.75rem;
-        justify-content: flex-start;
-    }
-
-    td.actions-cell:before {
-        display: none;
+        display: flex;
+        justify-content: flex-end; 
+        align-items: center;      
+        gap: 0.5rem;             
     }
 }
