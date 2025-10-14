@@ -16,3 +16,7 @@ export const updateLibrarianFailure = createAction('[Librarian API] Update Libra
 export const deleteLibrarian = createAction('[Librarian List] Delete Librarian', props<{ id: number }>());
 export const deleteLibrarianSuccess = createAction('[Librarian API] Delete Librarian Success', props<{ id: number }>());
 export const deleteLibrarianFailure = createAction('[Librarian API] Delete Librarian Failure', props<{ error: any }>());
+
+export const loadLibrarian = createAction('[Librarian Form] Load Librarian', props<{ id: number }>());
+export const loadLibrarianSuccess = createAction('[Librarian API] Load Librarian Success', props<{ librarian: Librarian }>());
+export const loadLibrarianFailure = createAction('[Librarian API] Load Librarian Failure', props<{ error: any }>());

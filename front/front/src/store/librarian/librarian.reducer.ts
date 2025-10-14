@@ -29,5 +29,16 @@ export const librarianReducer = createReducer(
     adapter.updateOne({ id: librarian.id, changes: librarian }, state)
   ),
 
-  on(LibrarianActions.deleteLibrarianSuccess, (state, { id }) => adapter.removeOne(id, state))
+  on(LibrarianActions.deleteLibrarianSuccess, (state, { id }) => adapter.removeOne(id, state)),
+  on(LibrarianActions.loadLibrarian, (state, { id }) => ({
+    ...state,
+    loading: true,
+    selectedLibrarianId: id
+  })),
+  on(LibrarianActions.loadLibrarianSuccess, (state, { librarian }) =>
+    adapter.upsertOne(librarian, { ...state, loading: false })
+  ),
+  on(LibrarianActions.loadLibrarianFailure, (state, { error }) => ({ ...state, loading: false, error })),
+
+
 );

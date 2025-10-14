@@ -12,6 +12,7 @@ export class LibrarianEffects {
   addLibrarian$;
   deleteLibrarian$;
   updateLibrarian$;
+  loadLibrarian$;
 
   constructor(
     private actions$: Actions,
@@ -70,6 +71,18 @@ export class LibrarianEffects {
               this.router.navigate(['/librarians']);
             }),
             catchError((error) => of(LibrarianActions.updateLibrarianFailure({ error })))
+          )
+        )
+      )
+    );
+
+    this.loadLibrarian$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(LibrarianActions.loadLibrarian),
+        switchMap(({ id }) =>
+          this.librarianService.getLibrarian(id).pipe(
+            map((librarian) => LibrarianActions.loadLibrarianSuccess({ librarian })),
+            catchError((error) => of(LibrarianActions.loadLibrarianFailure({ error })))
           )
         )
       )

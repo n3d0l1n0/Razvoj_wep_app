@@ -1,22 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as LibrarianActions from '../../store/librarian/librarian.actions';
-import { AccessLevel } from '../../models/librarian.model';
+import { selectLibrarianById } from '../../store/librarian/librarian.selector';
+import { AccessLevel, Librarian } from '../../models/librarian.model';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-librarian-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './librarian-form-component.html',
-  styleUrls: ['./librariran-form-component.css'] 
+  styleUrls: ['./librariran-form-component.css']
 })
-export class LibrarianFormComponent implements OnInit {
+export class LibrarianFormComponent implements OnInit, OnDestroy {
   librarianForm!: FormGroup;
-  isEditMode = false; 
+  isEditMode = false;
+  librarianId: number | null = null;
   accessLevels = Object.values(AccessLevel);
+  private subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
@@ -30,12 +35,51 @@ export class LibrarianFormComponent implements OnInit {
       ime: ['', Validators.required],
       prezime: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: [''],
       datumRodjenja: ['', Validators.required],
       nivoPristupa: [AccessLevel.JUNIOR, Validators.required],
     });
 
-    // TO DO: izmeni bibliotekara...
+    const paramSub = this.route.paramMap.subscribe(params => {
+      const idStr = params.get('id');
+      if (idStr) {
+        this.isEditMode = true;
+        this.librarianId = +idStr;
+
+        this.librarianForm.get('password')?.setValidators([Validators.minLength(8)]);
+        this.librarianForm.get('password')?.updateValueAndValidity();
+
+        this.store.dispatch(LibrarianActions.loadLibrarian({ id: this.librarianId }));
+
+        const librarianSub = this.store.select(selectLibrarianById({ id: this.librarianId }))
+          .pipe(
+            filter(librarian => !!librarian)
+          )
+          .subscribe(librarian => {
+            if (librarian) {
+                const birthDate = new Date(librarian.user.datumRodjenja);
+                const formattedDate = birthDate.toISOString().split('T')[0];
+
+                this.librarianForm.patchValue({
+                    ime: librarian.user.ime,
+                    prezime: librarian.user.prezime,
+                    email: librarian.user.email,
+                    datumRodjenja: formattedDate,
+                    nivoPristupa: librarian.nivoPristupa
+                });
+            }
+          });
+        this.subscription.add(librarianSub);
+      } else {
+        this.librarianForm.get('password')?.setValidators([Validators.required, Validators.minLength(8)]);
+        this.librarianForm.get('password')?.updateValueAndValidity();
+      }
+    });
+    this.subscription.add(paramSub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   onSubmit(): void {
@@ -43,8 +87,24 @@ export class LibrarianFormComponent implements OnInit {
       return;
     }
 
-    const librarianPayload = this.librarianForm.getRawValue();
+    const formValue = this.librarianForm.getRawValue();
 
-    this.store.dispatch(LibrarianActions.addLibrarian({ librarian: librarianPayload as any }));
+    const librarianPayload = {
+      user: {
+        ime: formValue.ime,
+        prezime: formValue.prezime,
+        email: formValue.email,
+        datumRodjenja: formValue.datumRodjenja,
+        ...(formValue.password && { password: formValue.password })
+      },
+      nivoPristupa: formValue.nivoPristupa,
+    };
+
+
+    if (this.isEditMode && this.librarianId) {
+      this.store.dispatch(LibrarianActions.updateLibrarian({ id: this.librarianId, librarian: librarianPayload as any }));
+    } else {
+      this.store.dispatch(LibrarianActions.addLibrarian({ librarian: librarianPayload as any }));
+    }
   }
 }
