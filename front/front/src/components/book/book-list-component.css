@@ -1,6 +1,6 @@
 .list-container {
     padding: 1rem 2rem;
-    font-family: 'Garamond', serif;
+    font-family: 'Georgia', serif;;
     background-color: #fafafa;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -86,7 +86,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-family: inherit;
+    font-family: 'Georgia', serif;;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
   }
@@ -102,7 +102,7 @@
     color: white;
     text-decoration: none;
     border-radius: 4px;
-    font-family: inherit;
+    font-family: 'Georgia', serif;;
     font-size: 0.9rem;
     text-align: center;
     transition: background-color 0.3s ease;
