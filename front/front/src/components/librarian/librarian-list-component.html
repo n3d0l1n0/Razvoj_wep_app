@@ -1,0 +1,33 @@
+<div>
+  <h2>Bibliotekari</h2>
+  
+  <a routerLink="/librarians/my-account" class="button-account">Moj nalog</a>
+  <a routerLink="/librarians/add" class="add-button" *ngIf="isAdmin$ | async">Dodaj novog bibliotekara</a>
+  
+  <div *ngIf="loading$ | async">Učitavanje...</div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Ime i Prezime</th>
+        <th>Email</th>
+        <th>Datum zaposlenja</th>
+        <th>Nivo pristupa</th>
+        <th *ngIf="isAdmin$ | async">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let librarian of librarians$ | async">
+        <td>{{ librarian.user.ime }} {{ librarian.user.prezime }}</td>
+        <td>{{ librarian.user.email }}</td>
+        <td>{{ librarian.datumZaposlenja | date: 'dd.MM.yyyy' }}</td>
+        <td>{{ librarian.nivoPristupa }}</td>
+        
+        <td *ngIf="isAdmin$ | async">
+          <a [routerLink]="['/librarians', librarian.id, 'edit']" class="button-edit">Izmeni</a>
+          <button (click)="deleteLibrarian(librarian.id)">Obriši</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

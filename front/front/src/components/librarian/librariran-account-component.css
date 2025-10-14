@@ -1,0 +1,27 @@
+.account-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f5f5dc;
+    border: 1px solid #d2b48c;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: 'Garamond', serif;
+  }
+  
+  .account-details p {
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eaddca;
+    padding-bottom: 0.5rem;
+  }
+  
+  .account-details strong {
+    color: #3e2723;
+  }

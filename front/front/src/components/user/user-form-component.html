@@ -1,0 +1,49 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+  <h2>{{ isEditMode ? 'Izmena korisnika' : 'Dodavanje novog korisnika' }}</h2>
+
+  <div class="form-group">
+    <label for="ime">Ime</label>
+    <input id="ime" type="text" formControlName="ime" placeholder="Unesite ime">
+    <div *ngIf="userForm.get('ime')?.invalid && (userForm.get('ime')?.dirty || userForm.get('ime')?.touched)" class="error">
+      <small *ngIf="userForm.get('ime')?.errors?.['required']">Ime je obavezno.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="prezime">Prezime</label>
+    <input id="prezime" type="text" formControlName="prezime" placeholder="Unesite prezime">
+    <div *ngIf="userForm.get('prezime')?.invalid && (userForm.get('prezime')?.dirty || userForm.get('prezime')?.touched)" class="error">
+      <small *ngIf="userForm.get('prezime')?.errors?.['required']">Prezime je obavezno.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" placeholder="Unesite email">
+    <div *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched)" class="error">
+      <small *ngIf="userForm.get('email')?.errors?.['required']">Email je obavezan.</small>
+      <small *ngIf="userForm.get('email')?.errors?.['email']">Unesite validnu email adresu.</small>
+    </div>
+  </div>
+
+  <div class="form-group" *ngIf="!isEditMode">
+    <label for="password">Lozinka</label>
+    <input id="password" type="password" formControlName="password" placeholder="Unesite lozinku">
+    <div *ngIf="userForm.get('password')?.invalid && (userForm.get('password')?.dirty || userForm.get('password')?.touched)" class="error">
+      <small *ngIf="userForm.get('password')?.errors?.['required']">Lozinka je obavezna.</small>
+      <small *ngIf="userForm.get('password')?.errors?.['minlength']">Lozinka mora imati najmanje 8 karaktera.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="datumRodjenja">Datum rođenja</label>
+    <input id="datumRodjenja" type="date" formControlName="datumRodjenja">
+    <div *ngIf="userForm.get('datumRodjenja')?.invalid && (userForm.get('datumRodjenja')?.dirty || userForm.get('datumRodjenja')?.touched)" class="error">
+      <small *ngIf="userForm.get('datumRodjenja')?.errors?.['required']">Datum rođenja je obavezan.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="userForm.invalid">
+    {{ isEditMode ? 'Sačuvaj izmene' : 'Dodaj korisnika' }}
+  </button>
+</form>

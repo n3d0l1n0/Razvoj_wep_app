@@ -1,0 +1,97 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(74, 63, 53, 0.5);
+    z-index: 100;
+  }
+  
+  .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #f5f5dc;
+    color: #6d5d4b;
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid #d2b48c;
+    z-index: 101;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Georgia', serif;
+  }
+  
+  .modal-content h3 {
+    color: #4a3f35;
+    border-bottom: 2px solid #d2b48c;
+    padding-bottom: 8px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-family: 'Garamond', serif;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #4a3f35;
+    font-weight: bold;
+  }
+  
+  .form-group select,
+  .form-group input {
+    width: 100%;
+    padding: 8px;
+    background-color: #faf0e6;
+    border: 1px solid #d2b48c;
+    border-radius: 4px;
+    color: #6d5d4b;
+    font-family: 'Georgia', serif;
+  }
+  
+  .form-group select:focus,
+  .form-group input:focus {
+    outline: none;
+    border-color: #8b4513;
+    box-shadow: 0 0 5px rgba(139, 69, 19, 0.2);
+  }
+  
+  .modal-actions {
+    text-align: right;
+    margin-top: 24px;
+  }
+  
+  .modal-actions .action-button {
+    display: inline-block;
+    background-color: #8b4513;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    margin-left: 10px;
+  }
+  
+  .modal-actions .action-button:hover {
+    background-color:#8b4513;
+  }
+  
+  .modal-actions .action-button.secondary {
+      background-color: #8b4513;
+      color: #4a3f35;
+  }
+  
+  .modal-actions .action-button.secondary:hover {
+      background-color:#8b4513;
+  }

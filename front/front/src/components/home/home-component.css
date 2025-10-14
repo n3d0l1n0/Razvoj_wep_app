@@ -1,0 +1,39 @@
+.home-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background-color: #f5f5dc;
+    border: 1px solid #d2b48c;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Georgia', serif;
+    color: #5d4037;
+    text-align: center;
+    }
+    h1 {
+    font-family: 'Garamond', serif;
+    color: #3e2723;
+    border-bottom: 2px solid #d2b48c;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    }
+    .role-selection {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    }
+    .role-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #8b4513;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+    font-family: 'Georgia', serif;
+    }
+    .role-button:hover {
+    background-color: #5d4037;
+    }
