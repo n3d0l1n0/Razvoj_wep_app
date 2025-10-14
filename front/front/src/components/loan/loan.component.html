@@ -18,8 +18,8 @@
     </div>
 
     <div class="modal-actions">
-      <button type="button" (click)="closeModal.emit()">Odustani</button>
-      <button type="submit" [disabled]="loanForm.invalid">Iznajmi</button>
-    </div>
+      <button type="button" class="action-button secondary" (click)="closeModal.emit()">Odustani</button>
+      <button type="submit" class="action-button" [disabled]="loanForm.invalid">Iznajmi</button>
+    </div>    
   </form>
 </div>

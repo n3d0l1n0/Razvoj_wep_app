@@ -70,6 +70,31 @@
     color: #6d5d4b;
     font-size: 0.9rem; 
   }
+  .loan-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .delete-button {
+    background-color: #8b4513;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .delete-button:hover {
+    background-color: #8b4513;
+  }
   
   @media (max-width: 768px) {
     :host {

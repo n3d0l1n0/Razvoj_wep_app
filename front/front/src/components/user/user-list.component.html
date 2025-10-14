@@ -16,7 +16,7 @@
     <tbody>
       <tr *ngFor="let user of users$ | async">
         <td data-label="Ime i Prezime:">
-          <a [routerLink]="['/users', user.id]" class="user-link">{{ user.ime }} {{ user.prezime }}</a>
+          <a [routerLink]="['/users', user.id]" class="user-link-btn">{{ user.ime }} {{ user.prezime }}</a>
         </td>
         <td data-label="Email:">{{ user.email }}</td>
         <td data-label="Datum učlanjenja:">{{ user.datumUclanjenja | date: 'dd.MM.yyyy' }}</td>

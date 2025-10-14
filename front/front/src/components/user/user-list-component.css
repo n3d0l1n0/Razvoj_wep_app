@@ -27,26 +27,62 @@ h2 {
     font-size: 2.5rem;
 }
 
-.btn {
+.btn, a.btn-like, button {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    margin-bottom: 1.5rem; 
+    margin-bottom: 1rem;
     background-color: #8b4513;
-    color: #fff !important; 
+    color: #fff !important;
     text-decoration: none;
     border: 1px solid #8b4513;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
     font-family: 'Georgia', serif;
     font-size: 1rem;
     cursor: pointer;
     text-align: center;
 }
 
-.btn:hover {
+.btn:hover, a.btn-like:hover, button:hover {
+    background-color: #5d4037;
+    border-color: #5d4037;
+    color: #fff !important;
+}
+
+.btn.edit, button.edit {
+    background-color: transparent;
+    color: #8b4513 !important;
+    border-color: #8b4513;
+}
+
+.btn.edit:hover, button.edit:hover {
+    background-color: #8b4513;
+    color: #fff !important;
+}
+
+.user-link-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #8b4513;
+    color: #fff !important;
+    text-decoration: none;
+    border: 1px solid #8b4513;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    min-width: 200px;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.user-link-btn:hover {
     background-color: #5d4037;
     border-color: #5d4037;
 }
+
 
 table {
     width: 100%;
@@ -64,28 +100,8 @@ th, td {
     padding: 1rem;
     text-align: left;
     border-bottom: 1px solid #d2b48c;
+    vertical-align: middle;
 }
-
-td a.user-link {
-    display: inline-block;
-    padding: 0.75rem 2.5rem;
-    margin-bottom: 1.5rem; 
-    background-color: #8b4513;
-    color: #fff !important; 
-    text-decoration: none;
-    border: 1px solid #8b4513;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    font-family: 'Georgia', serif;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-}
-
-td a.user-link:hover {
-    color: #5d4037;
-}
-
 
 tbody tr:nth-child(even) {
     background-color: #faf0e6;
@@ -102,75 +118,85 @@ td.actions-cell {
     align-items: center;
 }
 
-td.actions-cell .btn {
+td.actions-cell .btn, td.actions-cell button {
     padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
-    margin: 0; 
+    margin: 0;
 }
+
 
 @media (max-width: 768px) {
     div {
         padding: 1.5rem;
+        max-width: 100%;
     }
 
     h2 {
         font-size: 2rem;
     }
 
-    table, thead, tbody, th, td, tr {
-        display: block;
+    thead {
+        display: none;
     }
 
-    thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
+    table, tbody, tr, td {
+        display: block;
+        width: 100%;
+        align-items: center;
     }
 
     tr {
-        border: 1px solid #ccc;
-        margin-bottom: 1rem;
+        border: 1px solid #d2b48c;
+        margin-bottom: 1.5rem;
+        border-radius: 8px;
+        overflow: hidden;
     }
 
     td {
         border: none;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #eaddca;
         position: relative;
         padding-left: 45%;
         padding-top: 0.75rem;
         padding-bottom: 0.75rem;
-        min-height: 48px;
+        text-align: right;
+        min-height: 2.5rem;
         display: flex;
         align-items: center;
-        justify-content: flex-end; 
+        justify-content: flex-end;
+    }
+    
+    tr td:last-child {
+      border-bottom: none;
     }
 
     td:before {
         content: attr(data-label);
         position: absolute;
-        top: 50%;
-        left: 6px;
-        transform: translateY(-50%);
-        width: 40%; 
-        white-space: normal; 
-        text-align: center;
-        
-        padding: 0.6rem 0.5rem;
-        background-color: #8b4513;
-        color: #fff !important;
-        font-family: 'Georgia', serif;
-        font-size: 0.8rem; 
-        border-radius: 4px;
-        border: 1px solid #5d4037;
-        box-sizing: border-box; 
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 40%;
+        background-color: #d2b48c;
+        color: #4a3f35;
+        font-weight: bold;
+        white-space: normal;
+        text-align: left;
+        padding: 0.75rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    td .user-link-btn {
+        width: 100%;
     }
 
     td.actions-cell {
         padding-left: 0.75rem;
-        justify-content: flex-start; 
+        justify-content: flex-start;
     }
 
     td.actions-cell:before {
-        display: none; 
+        display: none;
     }
 }

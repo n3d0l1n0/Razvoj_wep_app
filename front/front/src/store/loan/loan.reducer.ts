@@ -15,5 +15,10 @@ export const loanReducer = createReducer(
   on(LoanActions.addLoanSuccess, (state, { loan }) => {
     return loanAdapter.addOne(loan, { ...state, loading: false });
   }),
-  on(LoanActions.addLoanFailure, (state, { error }) => ({ ...state, loading: false, error }))
+  on(LoanActions.addLoanFailure, (state, { error }) => ({ ...state, loading: false, error })),
+  on(LoanActions.deleteLoan, (state) => ({...state, loading: true })),
+  on(LoanActions.deleteLoanSuccess, (state, { loanId }) => {
+    return loanAdapter.removeOne(loanId, { ...state, loading: false });
+  }),
+  on(LoanActions.deleteLoanFailure, (state, { error }) => ({ ...state, loading: false, error })),
 );

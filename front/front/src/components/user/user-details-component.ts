@@ -4,14 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Loan } from '../../models/loan.model';
-import { loadLoansForUser } from '../../store/loan/loan.action';
+import { loadLoansForUser, deleteLoan } from '../../store/loan/loan.action'; 
 import { selectLoansForCurrentUser } from '../../store/loan/loan.selector';
 import { LoanModalComponent } from '../loan/loan.component';
 
 @Component({
   selector: 'app-user-details',
   standalone: true, 
-    imports: [
+  imports: [
     CommonModule,
     LoanModalComponent 
   ],
@@ -27,6 +27,7 @@ import { LoanModalComponent } from '../loan/loan.component';
     <li *ngFor="let loan of loans$ | async">
       <span class="book-title">{{ loan.book.naslov }}</span>
       <span class="return-date">Vratiti do: {{ loan.predvidjeniDatumVracanja | date: 'dd.MM.yyyy' }}</span>
+      <button class="delete-button" (click)="deleteLoan(loan.id, loan.book.id)">Vrati knjigu</button>
     </li>
   </ul>
 
@@ -51,11 +52,16 @@ export class UserDetailsComponent implements OnInit {
   }
 
   openLoanModal(): void {
-    console.log('Otvaram modal za iznajmljivanje za korisnika:', this.userId);
     this.isModalOpen = true;
   }
 
   closeLoanModal(): void {
     this.isModalOpen = false;
+  }
+
+  deleteLoan(loanId: number, bookId: number): void {
+    if (confirm('Da li ste sigurni da želite da vratite ovu knjigu?')) {
+      this.store.dispatch(deleteLoan({ loanId, bookId }));
+    }
   }
 }

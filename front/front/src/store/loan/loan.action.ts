@@ -30,3 +30,18 @@ export const addLoanFailure = createAction(
   '[Loan API] Add Loan Failure',
   props<{ error: any }>()
 );
+
+export const deleteLoan = createAction(
+  '[User Details Page] Delete Loan',
+  props<{ loanId: number, bookId: number }>()
+);
+
+export const deleteLoanSuccess = createAction(
+  '[Loan API] Delete Loan Success',
+  props<{ loanId: number, bookId: number }>()
+);
+
+export const deleteLoanFailure = createAction(
+  '[Loan API] Delete Loan Failure',
+  props<{ error: any }>()
+);

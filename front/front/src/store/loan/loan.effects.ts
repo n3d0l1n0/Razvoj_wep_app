@@ -15,6 +15,8 @@ export class LoanEffects {
   addLoan$;
   updateBookOnLoanSuccess$;
   refreshLoansOnSuccess$;
+  deleteLoan$;
+  updateBookOnDeleteSuccess$;
 
   constructor(
     private actions$: Actions,
@@ -65,6 +67,33 @@ export class LoanEffects {
         ofType(LoanActions.addLoanSuccess),
         map(({ loan }) => {
             return LoanActions.loadLoansForUser({ userId: loan.user.id });
+        })
+      );
+    });
+
+    this.deleteLoan$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(LoanActions.deleteLoan),
+        switchMap(({ loanId, bookId }) => 
+          this.loanService.deleteLoan(loanId).pipe(
+            map(() => LoanActions.deleteLoanSuccess({ loanId, bookId })),
+            tap(() => alert('Knjiga je uspešno vraćena!')),
+            catchError((error) => of(LoanActions.deleteLoanFailure({ error })))
+          )
+        )
+      );
+    });
+
+    // IZMENA: Efekat za promenu statusa knjige nakon vraćanja
+    this.updateBookOnDeleteSuccess$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(LoanActions.deleteLoanSuccess),
+        map(({ bookId }) => {
+          return BookActions.updateBook({
+            id: bookId,
+            // Pretpostavka je da se status zove DOSTUPNA u BookStatus enumu
+            bookData: { status: BookStatus.DOSTUPNA }, 
+          });
         })
       );
     });
