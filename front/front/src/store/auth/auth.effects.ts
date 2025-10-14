@@ -58,9 +58,9 @@ export class AuthEffects {
             const token = this.authService.getToken();
             const user = this.authService.getUser();
             if (token && user) {
-                return AuthActions.loginSuccess({ authResponse: { access_token: token, user } });
+                return AuthActions.initAuthSuccess({ authResponse: { access_token: token, user } });
             }
-            return { type: '[Auth] InitAuth NoOp' }; 
+            return AuthActions.initAuthFailure(); 
         })
       );
     });

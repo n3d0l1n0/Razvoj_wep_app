@@ -14,7 +14,7 @@ import { AccessLevel } from '../models/librarian.model';
 
 export const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent},
   
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { 

@@ -4,64 +4,38 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Loan } from '../../models/loan.model';
-import { loadLoansForUser, deleteLoan } from '../../store/loan/loan.action'; 
+import { loadLoansForUser, deleteLoan } from '../../store/loan/loan.action';
 import { selectLoansForCurrentUser } from '../../store/loan/loan.selector';
 import { LoanModalComponent } from '../loan/loan.component';
-
 @Component({
-  selector: 'app-user-details',
-  standalone: true, 
-  imports: [
-    CommonModule,
-    LoanModalComponent 
-  ],
-  styleUrls: ['./user-details-component.css'],
-  template: `
-     <h2>Detalji Korisnika</h2>
-  <h3>Zaduženja</h3>
-
-  <button class="loan-button" (click)="openLoanModal()">Iznajmi novu knjigu</button>
-
-  <ul class="loan-list">
-    <li *ngIf="(loans$ | async)?.length === 0">Korisnik trenutno nema zaduženja.</li>
-    <li *ngFor="let loan of loans$ | async">
-      <span class="book-title">{{ loan.book.naslov }}</span>
-      <span class="return-date">Vratiti do: {{ loan.predvidjeniDatumVracanja | date: 'dd.MM.yyyy' }}</span>
-      <button class="delete-button" (click)="deleteLoan(loan.id, loan.book.id)">Vrati knjigu</button>
-    </li>
-  </ul>
-
-  <app-loan-modal
-    *ngIf="isModalOpen"
-    [userId]="userId"
-    (closeModal)="closeLoanModal()"
-  ></app-loan-modal>
-  `
+selector: 'app-user-details',
+standalone: true,
+imports: [
+CommonModule,
+LoanModalComponent
+],
+styleUrls: ['./user-details-component.css'],
+templateUrl: './user-details-components.html' 
 })
-export class UserDetailsComponent implements OnInit {
+  export class UserDetailsComponent implements OnInit {
   userId!: number;
   loans$!: Observable<Loan[]>;
   isModalOpen = false;
-
   constructor(private route: ActivatedRoute, private store: Store) {}
-
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
     this.store.dispatch(loadLoansForUser({ userId: this.userId }));
     this.loans$ = this.store.select(selectLoansForCurrentUser);
-  }
-
-  openLoanModal(): void {
+    }
+    openLoanModal(): void {
     this.isModalOpen = true;
-  }
-
-  closeLoanModal(): void {
+    }
+    closeLoanModal(): void {
     this.isModalOpen = false;
-  }
-
-  deleteLoan(loanId: number, bookId: number): void {
+    }
+    deleteLoan(loanId: number, bookId: number): void {
     if (confirm('Da li ste sigurni da želite da vratite ovu knjigu?')) {
-      this.store.dispatch(deleteLoan({ loanId, bookId }));
+    this.store.dispatch(deleteLoan({ loanId, bookId }));
     }
   }
 }

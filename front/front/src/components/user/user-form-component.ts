@@ -32,7 +32,6 @@ export class UserFormComponent implements OnInit {
       ime: ['', Validators.required],
       prezime: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
       datumRodjenja: ['', Validators.required],
     });
 

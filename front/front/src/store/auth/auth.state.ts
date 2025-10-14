@@ -10,6 +10,7 @@ export interface AuthState {
   token: string | null;
   error: string | null;
   loading: boolean;
+  isAuthInitialized: boolean; 
 }
 
 export const initialAuthState: AuthState = {
@@ -17,4 +18,5 @@ export const initialAuthState: AuthState = {
   token: null,
   error: null,
   loading: false,
+  isAuthInitialized: false,
 };

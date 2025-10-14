@@ -33,3 +33,8 @@ export const selectIsMedior = createSelector(
     selectUserRole,
     (role) => role === AccessLevel.ADMIN || role === AccessLevel.SENIOR || role === AccessLevel.MEDIOR
 );
+
+export const selectIsAuthInitialized = createSelector(
+    selectAuthState,
+    (state) => state.isAuthInitialized
+);

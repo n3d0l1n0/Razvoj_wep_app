@@ -9,29 +9,7 @@ import * as AuthActions from '../../store/auth/auth.actions';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   styleUrls: ['./login.component.css'],
-  template: `
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <h2>Login</h2>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input id="email" type="email" formControlName="email">
-    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error">
-      <div *ngIf="loginForm.get('email')?.errors?.['required']">Email je obavezan.</div>
-      <div *ngIf="loginForm.get('email')?.errors?.['email']">Unesite validnu email adresu.</div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="password">Lozinka</label>
-    <input id="password" type="password" formControlName="password">
-    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
-      Lozinka je obavezna.
-    </div>
-  </div>
-
-  <button type="submit" [disabled]="loginForm.invalid">Uloguj se</button>
-</form>
-  `
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
   loginForm: FormGroup;

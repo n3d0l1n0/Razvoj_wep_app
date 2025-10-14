@@ -3,8 +3,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { selectIsLoggedIn } from '../../store/auth/auth.selector';
+import { map, take, filter, switchMap } from 'rxjs/operators';
+import { selectIsLoggedIn, selectIsAuthInitialized } from '../../store/auth/auth.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -21,14 +21,20 @@ export class AuthGuard implements CanActivate {
       return of(true);
     }
 
-    return this.store.select(selectIsLoggedIn).pipe(
+    return this.store.select(selectIsAuthInitialized).pipe(
+      filter(initialized => initialized),
       take(1),
-      map(isLoggedIn => {
-        if (!isLoggedIn) {
-          this.router.navigate(['/login']);
-          return false;
-        }
-        return true;
+      switchMap(() => {
+        return this.store.select(selectIsLoggedIn).pipe(
+          take(1),
+          map(isLoggedIn => {
+            if (!isLoggedIn) {
+              this.router.navigate(['/login']);
+              return false;
+            }
+            return true;
+          })
+        );
       })
     );
   }

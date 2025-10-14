@@ -1,0 +1,19 @@
+<h2>Detalji Korisnika</h2>
+<h3>Zaduženja</h3>
+
+<button class="loan-button" (click)="openLoanModal()">Iznajmi novu knjigu</button>
+
+<ul class="loan-list">
+  <li *ngIf="(loans$ | async)?.length === 0">Korisnik trenutno nema zaduženja.</li>
+  <li *ngFor="let loan of loans$ | async">
+    <span class="book-title">{{ loan.book.naslov }}</span>
+    <span class="return-date">Vratiti do: {{ loan.predvidjeniDatumVracanja | date: 'dd.MM.yyyy' }}</span>
+    <button class="delete-button" (click)="deleteLoan(loan.id, loan.book.id)">Vrati knjigu</button>
+  </li>
+</ul>
+
+<app-loan-modal
+  *ngIf="isModalOpen"
+  [userId]="userId"
+  (closeModal)="closeLoanModal()"
+></app-loan-modal>

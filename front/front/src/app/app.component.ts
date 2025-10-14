@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as AuthActions from '../store/auth/auth.actions';
 import { Observable } from 'rxjs';
 import { selectIsLoggedIn } from '../store/auth/auth.selector';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +18,10 @@ export class AppComponent implements OnInit {
   title = 'front';
   isLoggedIn$!: Observable<boolean>;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private authService: AuthService) {}
 
   ngOnInit() {
+    this.authService.logout(); 
     this.store.dispatch(AuthActions.initAuth());
     this.isLoggedIn$ = this.store.select(selectIsLoggedIn);
   }
