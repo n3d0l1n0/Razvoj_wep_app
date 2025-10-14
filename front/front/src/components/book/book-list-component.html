@@ -1,32 +1,26 @@
 <div>
-    <h2>Knjige u biblioteci</h2>
-    <a routerLink="/books/add" class="add-button" *ngIf="isMedior$ | async">Dodaj novu knjigu</a>
-    
-    <div *ngIf="loading$ | async">Učitavanje...</div>
-    
-    <table>
-      <thead>
-        <tr>
-          <th>Naslov</th>
-          <th>Autor</th>
-          <th>ISBN</th>
-          <th>Status</th>
-          <th>Stanje</th>
-          <th>Akcije</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let book of books$ | async">
-          <td>{{ book.naslov }}</td>
-          <td>{{ book.autor }}</td>
-          <td>{{ book.isbn }}</td>
-          <td>{{ book.status }}</td>
-          <td>{{ book.stanje }}</td>
-          <td *ngIf="isMedior$ | async">
-            <a [routerLink]="['/books', book.id, 'edit']" class="button-edit">Izmeni</a>
-            <button (click)="deleteBook(book.id)">Obriši</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <h2>Knjige u biblioteci</h2>
+  <a routerLink="/books/add" class="add-button" *ngIf="isMedior$ | async">Dodaj novu knjigu</a>
+  <div *ngIf="loading$ | async" class="loading-message">Učitavanje...</div>  
+  <table>
+    <thead>
+      <tr>
+        <th>Naslov</th>
+        <th>Autor</th>
+        <th>ISBN</th>
+        <th>Status</th>
+        <th>Stanje</th>
+        <th *ngIf="isMedior$ | async">Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr 
+        *ngFor="let book of books$ | async"
+        app-book-list-item
+        [book]="book"
+        [showActions]="(isMedior$ | async) ?? false"
+        (bookDeleted)="onBookDeleted($event)">
+      </tr>
+    </tbody>
+  </table>
+</div>

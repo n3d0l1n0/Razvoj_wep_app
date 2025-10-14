@@ -42,17 +42,23 @@ export class BookEffects {
         )
       );
     });
-
     this.deleteBook$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(BookActions.deleteBook),
-        switchMap(({ id }) =>
-          this.bookService.deleteBook(id).pipe(
-            map(() => BookActions.deleteBookSuccess({ id })),
-            tap(() => alert('Knjiga uspešno obrisana!')),
-            catchError((error) => of(BookActions.deleteBookFailure({ error })))
-          )
-        )
+        switchMap(async ({ id }) => {
+          try {
+            await this.bookService.deleteBook(id);
+            alert('Knjiga uspešno obrisana!');
+            return BookActions.deleteBookSuccess({ id });   
+          } catch (error: any) { 
+            if (error.status === 409) {
+              alert('Nije moguće obrisati knjigu koja je iznajmljena.');
+            } else {
+              alert('Došlo je do greške prilikom brisanja knjige.');
+            }
+            return BookActions.deleteBookFailure({ error });
+          }
+        })
       );
     });
 

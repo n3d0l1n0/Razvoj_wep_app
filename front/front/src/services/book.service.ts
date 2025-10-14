@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { Book } from '../models/book.model';
 
 @Injectable({
@@ -19,8 +19,9 @@ export class BookService {
     return this.http.post<Book>(this.apiUrl, bookData);
   }
 
-  deleteBook(id: number): Observable<{}> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteBook(id: number): Promise<void> {
+    const request$ = this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return lastValueFrom(request$);
   }
   updateBook(id: number, bookData: Partial<Book>): Observable<Book> {
     return this.http.patch<Book>(`${this.apiUrl}/${id}`, bookData);

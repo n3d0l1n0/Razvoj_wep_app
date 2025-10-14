@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { of, merge } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { BookStatus } from '../../models/book.model';
@@ -13,10 +13,9 @@ import * as LoanActions from './loan.action';
 export class LoanEffects {
   loadLoansForUser$;
   addLoan$;
-  updateBookOnLoanSuccess$;
   refreshLoansOnSuccess$;
   deleteLoan$;
-  updateBookOnDeleteSuccess$;
+  updateBookStatusOnLoanChange$;
 
   constructor(
     private actions$: Actions,
@@ -50,18 +49,6 @@ export class LoanEffects {
       );
     });
 
-    this.updateBookOnLoanSuccess$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(LoanActions.addLoanSuccess),
-        map(({ loan }) => {
-          return BookActions.updateBook({
-            id: loan.book.id,
-            bookData: { status: BookStatus.ZADUZENA },
-          });
-        })
-      );
-    });
-
     this.refreshLoansOnSuccess$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(LoanActions.addLoanSuccess),
@@ -84,17 +71,30 @@ export class LoanEffects {
       );
     });
 
-    // IZMENA: Efekat za promenu statusa knjige nakon vraćanja
-    this.updateBookOnDeleteSuccess$ = createEffect(() => {
-      return this.actions$.pipe(
+    this.updateBookStatusOnLoanChange$ = createEffect(() => {
+      const updateOnAddSuccess$ = this.actions$.pipe(
+        ofType(LoanActions.addLoanSuccess),
+        map(({ loan }) => {
+          return BookActions.updateBook({
+            id: loan.book.id,
+            bookData: { status: BookStatus.ZADUZENA },
+          });
+        })
+      );
+
+      const updateOnDeleteSuccess$ = this.actions$.pipe(
         ofType(LoanActions.deleteLoanSuccess),
         map(({ bookId }) => {
           return BookActions.updateBook({
             id: bookId,
-            // Pretpostavka je da se status zove DOSTUPNA u BookStatus enumu
             bookData: { status: BookStatus.DOSTUPNA }, 
           });
         })
+      );
+
+      return merge(
+        updateOnAddSuccess$,
+        updateOnDeleteSuccess$
       );
     });
   }

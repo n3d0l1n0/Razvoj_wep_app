@@ -1,0 +1,9 @@
+<td>{{ book.naslov }}</td>
+<td>{{ book.autor }}</td>
+<td>{{ book.isbn }}</td>
+<td>{{ book.status }}</td>
+<td>{{ book.stanje }}</td>
+<td *ngIf="showActions">
+  <a [routerLink]="['/books', book.id, 'edit']" class="button-edit">Izmeni</a>
+  <button (click)="onDeleteClick()">Obriši</button>
+</td>

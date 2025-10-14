@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { of, merge } from 'rxjs'; 
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
 import * as UserActions from './user.actions';
@@ -50,13 +50,15 @@ export class UserEffects {
     this.deleteUser$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(UserActions.deleteUser),
-        switchMap(({ id }) =>
-          this.userService.deleteUser(id).pipe(
-            map(() => UserActions.deleteUserSuccess({ id })),
-            tap(() => alert('Korisnik uspešno obrisan!')),
-            catchError((error) => of(UserActions.deleteUserFailure({ error })))
-          )
-        )
+        switchMap(async ({ id }) => {
+          try {
+            await this.userService.deleteUser(id);
+              alert('Korisnik uspešno obrisan!');
+            return UserActions.deleteUserSuccess({ id });
+          } catch (error) {
+            return UserActions.deleteUserFailure({ error });
+          }
+        })
       );
     });
 
@@ -77,12 +79,14 @@ export class UserEffects {
     });
 
     this.userModifiedSuccess$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(
-          UserActions.addUserSuccess,
-          UserActions.deleteUserSuccess,
-          UserActions.updateUserSuccess
-        ),
+      const addUserSuccess$ = this.actions$.pipe(ofType(UserActions.addUserSuccess));
+      const deleteUserSuccess$ = this.actions$.pipe(ofType(UserActions.deleteUserSuccess));
+      const updateUserSuccess$ = this.actions$.pipe(ofType(UserActions.updateUserSuccess));
+      return merge(
+        addUserSuccess$,
+        deleteUserSuccess$,
+        updateUserSuccess$
+      ).pipe(
         map(() => UserActions.loadUsers())
       );
     });

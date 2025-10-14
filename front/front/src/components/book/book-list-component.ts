@@ -7,11 +7,12 @@ import { selectAllBooks, selectBookLoading } from '../../store/book/book.selecto
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { selectIsMedior } from '../../store/auth/auth.selector';
+import { BookListItemComponent } from './book-list-item-component';
 
 @Component({
   selector: 'app-book-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, BookListItemComponent],
   templateUrl: './book-list-component.html',
   styleUrls: ['./book-list-component.css']
 })
@@ -29,7 +30,7 @@ export class BookListComponent implements OnInit {
     this.isMedior$ = this.store.select(selectIsMedior);
   }
 
-  deleteBook(id: number): void {
+  onBookDeleted(id: number): void {
     if (confirm('Da li ste sigurni da želite da obrišete ovu knjigu?')) {
       this.store.dispatch(BookActions.deleteBook({ id }));
     }

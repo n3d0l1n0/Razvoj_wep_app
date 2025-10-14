@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { User } from '../models/user.model';
 
 
@@ -28,7 +28,8 @@ export class UserService {
     return this.http.patch<User>(`${this.apiUrl}/${id}`, user);
   }
 
-  deleteUser(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteUser(id: number): Promise<void> {
+    const request$ = this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return lastValueFrom(request$);
   }
 }
